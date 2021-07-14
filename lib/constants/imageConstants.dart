@@ -1,0 +1,1 @@
+const logo10k = 'assets/images/logo10000codeurs.png';
