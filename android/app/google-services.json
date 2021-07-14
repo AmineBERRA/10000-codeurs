@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "55766277583",
+    "project_id": "codeurs-43bb2",
+    "storage_bucket": "codeurs-43bb2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55766277583:android:d041056da35d70244fc6ba",
+        "android_client_info": {
+          "package_name": "com.Amine.app10000_codeurs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55766277583-4fvs05ffq264c1tuucrs566apuk7dal9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe6DrRVuMPVhEV79gk8gB6b_H_dLp8D6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55766277583-4fvs05ffq264c1tuucrs566apuk7dal9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
