@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stage_10000_codeurs/helpers/constants/imageConstants.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 
 class HomeScreen extends StatelessWidget {

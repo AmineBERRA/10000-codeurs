@@ -14,7 +14,8 @@ class ServiceAuthentification {
 
   Future signInEmailPassword(String email,String password) async{
     try{
-      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential result =
+        await _auth.signInWithEmailAndPassword(email: email, password: password);
           User? user = result.user;
       return _userFromFirebaseUser(user!);
     }catch(exception){
@@ -25,7 +26,8 @@ class ServiceAuthentification {
 
   Future registerEmailPassword(String email,String password) async{
     try{
-      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential result =
+        await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
 
       //TODO store a new user with Firestore

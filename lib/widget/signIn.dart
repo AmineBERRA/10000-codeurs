@@ -86,20 +86,21 @@ class _SignRegisterState extends State<SignRegister> {
                           var password  = controllerPassword.value.text;
                           var email = controllerEmail.value.text;
 
-                          //TODO call firebase auth
+                          //call firebase auth
                           dynamic result = showSignIn
                               ? await _auth.signInEmailPassword(email, password)
                               : await _auth.registerEmailPassword(email, password);
                           if(result == null){
                             setState(() {
                               loading = false;
-                              error = "Please supply a valid email";
+                              error = "Please supply a valid email or password";
                             });
                           }
                         }
                       },
                       child: Text(showSignIn ? "Sign In" : "Register")
                   ),
+
                   SizedBox(height: 10.0),
                   Text(
                     error,
