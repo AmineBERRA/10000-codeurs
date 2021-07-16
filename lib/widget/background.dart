@@ -9,7 +9,7 @@ class Background extends StatelessWidget {
     return Container(
       child: Center(
         child: Opacity(
-          opacity: 0.5,
+          opacity: 0.2,
           child: Image.asset(logo10k, scale: 3,),
         ),
       ),

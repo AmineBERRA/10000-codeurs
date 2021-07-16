@@ -8,14 +8,7 @@ class AuthenticateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  SignRegister(),
-
-      /*Column(
-        children: [
-          Background(),
-          SignRegister()
-        ],
-      ),*/
+      body: SignRegister(),
     );
   }
 }
