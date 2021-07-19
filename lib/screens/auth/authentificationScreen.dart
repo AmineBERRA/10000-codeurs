@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stage_10000_codeurs/widget/background.dart';
 import 'package:stage_10000_codeurs/widget/signIn.dart';
 
 class AuthenticateScreen extends StatelessWidget {

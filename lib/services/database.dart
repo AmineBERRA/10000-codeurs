@@ -6,26 +6,24 @@ class ServiceDatabase {
 
   ServiceDatabase(this.uid);
 
-  final CollectionReference userCollection =
+  final CollectionReference<Map<String, dynamic>> userCollection =
       FirebaseFirestore.instance.collection("users");
 
-  Future<void> savaUser(String name) async {
+  Future<void> savaUser(String name, String lastname) async {
     return await userCollection.doc(uid).set({
-      'name' : name
+      'name' : name,
+      'lastname' : lastname
     });
   }
 
- /* AppUserData _userFromSnapshot(DocumentSnapshot snapshot) {
-    var data = snapshot.data();
-    if (data == null) throw Exception("user not found");
+  AppUserData _userFromSnapshot(DocumentSnapshot snapshot) {
     return AppUserData(
       uid: uid,
-      name: data['name']
+      name:snapshot['name'],
+      lastname: snapshot['lastname']
     );
   }
-*/
-/*
   Stream<AppUserData> get user {
     return userCollection.doc(uid).snapshots().map(_userFromSnapshot);
-  }*/
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,7 +9,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Welcome"),
+          backgroundColor: Colors.white,
+          title: Text("Welcome",
+          style: TextStyle(color: blueCodeurs),),
           actions: <Widget>[
             TextButton.icon(
                 onPressed: () async {
@@ -16,20 +19,24 @@ class HomeScreen extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.logout_outlined,
-                  color: Colors.white,
+                  color: blueCodeurs,
                 ),
                 label: Text(
                   "Logout",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: blueCodeurs),
                 ))
           ],
         ),
         body: Center(
-          child: Text(
-            "Bienvenue sur l'application 10 000 codeurs",
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
+          child: Container(
+            color: Colors.white,
+            child: Text(
+              "Bienvenue sur l'application 10 000 codeurs",
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          )
+
         ));
   }
 }

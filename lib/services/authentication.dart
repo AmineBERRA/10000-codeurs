@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stage_10000_codeurs/models/userModel.dart';
+import 'package:stage_10000_codeurs/services/database.dart';
 
 class ServiceAuthentification {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -24,15 +25,14 @@ class ServiceAuthentification {
     }
   }
 
-  Future registerEmailPassword(String email,String password) async{
+  Future registerEmailPassword(String name, String lastname,String email,String password) async{
     try{
       UserCredential result =
         await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
 
-      //TODO store a new user with Firestore
-
-      return _userFromFirebaseUser(user!);
+      await ServiceDatabase(user!.uid).savaUser(name, lastname);
+      return _userFromFirebaseUser(user);
     }catch(exception){
       print(exception.toString());
       return null;

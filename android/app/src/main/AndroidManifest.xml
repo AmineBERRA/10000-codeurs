@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.Amine.stage_10000_codeurs">
    <application
-        android:label="stage_10000_codeurs"
+        android:label="10000 Codeurs"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

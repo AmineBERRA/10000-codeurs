@@ -20,12 +20,16 @@ class _SignRegisterState extends State<SignRegister> {
   bool loading = false;
 
   final controllerEmail = TextEditingController();
+  final controllerName = TextEditingController();
+  final controllerLastName = TextEditingController();
   final controllerPassword = TextEditingController();
   bool showSignIn = true;
 
   @override
   void dispose() {
     controllerEmail.dispose();
+    controllerName.dispose();
+    controllerLastName.dispose();
     controllerPassword.dispose();
     super.dispose();
   }
@@ -34,6 +38,8 @@ class _SignRegisterState extends State<SignRegister> {
       _formKey.currentState?.reset();
       error = '';
       controllerEmail.text = '';
+      controllerName.text = '';
+      controllerLastName.text = '';
       controllerPassword.text = '';
       showSignIn = !showSignIn;
     });
@@ -45,39 +51,58 @@ class _SignRegisterState extends State<SignRegister> {
     Scaffold(
      //backgroundColor: Colors.blue,
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.white,
         elevation: 0.0,
-        title: Text(showSignIn ? "Sign In" : "Register"),
+        title: Text(showSignIn ? "Sign In" : "Register",
+        style: TextStyle(color: blueCodeurs),),
         actions: <Widget>[
           TextButton.icon(
-            icon: Icon(Icons.person,color: Colors.white,),
+            icon: Icon(Icons.person,color: blueCodeurs,),
             label: Text(showSignIn ? "Register" : "Sign In",
-              style: TextStyle(color: Colors.white),),
+              style: TextStyle(color: blueCodeurs),),
             onPressed: () => toggleView(),
           )
         ],
       ),
       body: Center(
         child: Container(
+          color: Colors.white,
           padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
           child: Form(
             key: _formKey,
             child: Center(
               child: Column(
                 children: [
+                  //Box prénom
+                  !showSignIn ?  TextFormField(
+                    controller: controllerName,
+                    decoration: textInputDecoration.copyWith(hintText: "Prénom"),
+                    validator: (value) => value!.isEmpty ? "Enter your name" : null,
+                  ) : Container(),
+                  !showSignIn ? SizedBox(height: 10.0) : Container(),
+                  //Box Nom de Famille
+                  !showSignIn ?  TextFormField(
+                    controller: controllerLastName,
+                    decoration: textInputDecoration.copyWith(hintText: "Nom"),
+                    validator: (value) => value!.isEmpty ? "Enter your name" : null,
+                  ) : Container(),
+                  !showSignIn ? SizedBox(height: 10.0) : Container(),
+                  //Box email
                   TextFormField(
                     controller: controllerEmail,
                     decoration: textInputDecoration.copyWith(hintText: "Email"),
                     validator: (value) => value!.isEmpty ? "Enter an email" : null,
                   ),
                   SizedBox(height: 10.0),
+                  //Box mot de passe
                   TextFormField(
                     controller: controllerPassword,
-                    decoration: textInputDecoration.copyWith(hintText: "Password"),
+                    decoration: textInputDecoration.copyWith(hintText: "Mot de Passe"),
                     obscureText: true,
                     validator: (value) => value!.length < 6 ? "Enter a password with 6 character minimum" : null,
                   ),
                   SizedBox(height: 10.0),
+                  //Bouton Connexion/Création de compte
                   ElevatedButton(
                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(blueCodeurs)),
                       onPressed: () async {
@@ -85,11 +110,13 @@ class _SignRegisterState extends State<SignRegister> {
                           setState(() => loading = true);
                           var password  = controllerPassword.value.text;
                           var email = controllerEmail.value.text;
+                          var name = controllerName.value.text;
+                          var lastname = controllerName.value.text;
 
                           //call firebase auth
                           dynamic result = showSignIn
                               ? await _auth.signInEmailPassword(email, password)
-                              : await _auth.registerEmailPassword(email, password);
+                              : await _auth.registerEmailPassword(name, lastname, email, password);
                           if(result == null){
                             setState(() {
                               loading = false;

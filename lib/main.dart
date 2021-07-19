@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stage_10000_codeurs/models/userModel.dart';
-import 'package:stage_10000_codeurs/screens/auth/authentificationScreen.dart';
 import 'package:stage_10000_codeurs/screens/splashScreenWrapper.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 import 'package:stage_10000_codeurs/widget/background.dart';
@@ -27,15 +26,13 @@ class MyApp extends StatelessWidget {
             child: Stack(
               children: [
                 SplashScreenWrapper(),
-                Background()
+                // Background(),
               ],
             ),
           )
-
         )
       ),
     );
-
   }
 }
 
