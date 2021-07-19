@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/textInputDecoration.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
+import 'package:stage_10000_codeurs/widget/dropDownButton.dart';
 import 'loading.dart';
 
 class SignRegister extends StatefulWidget {
@@ -87,6 +88,10 @@ class _SignRegisterState extends State<SignRegister> {
                     validator: (value) => value!.isEmpty ? "Enter your name" : null,
                   ) : Container(),
                   !showSignIn ? SizedBox(height: 10.0) : Container(),
+                  //Box choix de rôles
+                  //!showSignIn ? DropDownButton() : Container(),
+
+                  !showSignIn ? SizedBox(height: 10.0) : Container(),
                   //Box email
                   TextFormField(
                     controller: controllerEmail,
@@ -116,7 +121,7 @@ class _SignRegisterState extends State<SignRegister> {
                           //call firebase auth
                           dynamic result = showSignIn
                               ? await _auth.signInEmailPassword(email, password)
-                              : await _auth.registerEmailPassword(name, lastname, email, password);
+                              : await _auth.registerEmailPassword(name,lastname, email, password);
                           if(result == null){
                             setState(() {
                               loading = false;

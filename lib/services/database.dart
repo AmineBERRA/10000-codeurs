@@ -6,7 +6,7 @@ class ServiceDatabase {
 
   ServiceDatabase(this.uid);
 
-  final CollectionReference<Map<String, dynamic>> userCollection =
+  final CollectionReference userCollection =
       FirebaseFirestore.instance.collection("users");
 
   Future<void> savaUser(String name, String lastname) async {
@@ -17,6 +17,8 @@ class ServiceDatabase {
   }
 
   AppUserData _userFromSnapshot(DocumentSnapshot snapshot) {
+    var data = snapshot.data();
+    if(data == null) throw Exception("utilisateur inconnu");
     return AppUserData(
       uid: uid,
       name:snapshot['name'],

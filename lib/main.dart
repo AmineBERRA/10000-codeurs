@@ -21,12 +21,12 @@ class MyApp extends StatelessWidget {
       initialData: null,
       child:MaterialApp(
         debugShowCheckedModeBanner : false,
-        home: Container(
+        home:  Container(
           child: Center(
             child: Stack(
               children: [
                 SplashScreenWrapper(),
-                // Background(),
+                //Background(),
               ],
             ),
           )
