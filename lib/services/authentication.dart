@@ -24,7 +24,7 @@ class ServiceAuthentification {
       return null;
     }
   }
- 
+
   Future registerEmailPassword(String name, String lastname, String dropDownRole,String email,String password) async{
     try{
       UserCredential result =

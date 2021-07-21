@@ -19,7 +19,7 @@ class ServiceDatabase {
 
   AppUserData _userFromSnapshot(DocumentSnapshot snapshot) {
     var data = snapshot.data();
-    if(data == null) throw Exception("utilisateur inconnu");
+    if(data == null) throw Exception("Utilisateur Inconnu");
     return AppUserData(
       uid: uid,
       name:snapshot['name'],

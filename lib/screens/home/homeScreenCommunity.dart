@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreenCommunity extends StatelessWidget {
   final ServiceAuthentification _auth = ServiceAuthentification();
 
   @override
@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: Text("Welcome",
-          style: TextStyle(color: blueCodeurs),),
+            style: TextStyle(color: blueCodeurs),),
           actions: <Widget>[
             TextButton.icon(
                 onPressed: () async {
@@ -28,14 +28,15 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         body: Center(
-          child: Container(
-            color: Colors.white,
-            child: Text(
-              "Bienvenue sur l'application 10 000 codeurs",
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          )
+            child: Container(
+              color: Colors.white,
+              child: Text(
+                "Bienvenue sur l'application 10 000 codeurs"
+                    "Section Responsable de Communauté",
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            )
 
         ));
   }

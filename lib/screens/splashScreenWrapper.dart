@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stage_10000_codeurs/models/userModel.dart';
 import 'package:stage_10000_codeurs/screens/auth/authentificationScreen.dart';
-import 'package:stage_10000_codeurs/screens/home/homeScreen.dart';
+import 'package:stage_10000_codeurs/screens/home/homeScreenYoung.dart';
 
 class SplashScreenWrapper extends StatelessWidget {
   const SplashScreenWrapper({Key? key}) : super(key: key);
@@ -10,10 +10,10 @@ class SplashScreenWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AppUser?>(context);
-    if(user == null){
+    if (user == null) {
       return AuthenticateScreen();
-    }else{
-      return HomeScreen();
+    } else {
+      return HomeScreenYoung();
     }
   }
 }

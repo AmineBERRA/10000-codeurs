@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/textInputDecoration.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
-import 'package:stage_10000_codeurs/widget/dropDownButton.dart';
 import 'loading.dart';
 
 class SignRegister extends StatefulWidget {
@@ -149,7 +148,7 @@ class _SignRegisterState extends State<SignRegister> {
                           var password  = controllerPassword.value.text;
                           var email = controllerEmail.value.text;
                           var name = controllerName.value.text;
-                          var lastname = controllerName.value.text;
+                          var lastname = controllerLastName.value.text;
                           var dropDownRole = dropValue;
 
                           //call firebase auth
