@@ -24,14 +24,14 @@ class ServiceAuthentification {
       return null;
     }
   }
-
-  Future registerEmailPassword(String name, String lastname,String email,String password) async{
+ 
+  Future registerEmailPassword(String name, String lastname, String dropDownRole,String email,String password) async{
     try{
       UserCredential result =
         await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
 
-      await ServiceDatabase(user!.uid).savaUser(name, lastname);
+      await ServiceDatabase(user!.uid).savaUser(name, lastname, dropDownRole);
       return _userFromFirebaseUser(user);
     }catch(exception){
       print(exception.toString());

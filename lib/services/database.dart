@@ -9,10 +9,11 @@ class ServiceDatabase {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection("users");
 
-  Future<void> savaUser(String name, String lastname) async {
+  Future<void> savaUser(String name, String lastname, String dropDownRole) async {
     return await userCollection.doc(uid).set({
       'name' : name,
-      'lastname' : lastname
+      'lastname' : lastname,
+      'role' : dropDownRole
     });
   }
 
@@ -22,7 +23,8 @@ class ServiceDatabase {
     return AppUserData(
       uid: uid,
       name:snapshot['name'],
-      lastname: snapshot['lastname']
+      lastname: snapshot['lastname'],
+      dropDownRole: snapshot['role']
     );
   }
   Stream<AppUserData> get user {

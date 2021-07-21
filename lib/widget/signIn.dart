@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/textInputDecoration.dart';
@@ -15,6 +16,15 @@ class SignRegister extends StatefulWidget {
 class _SignRegisterState extends State<SignRegister> {
 
   final ServiceAuthentification _auth = ServiceAuthentification();
+
+  var items = <String>[
+    "Jeune",
+    "Expert",
+    "Direction",
+    "Responsable de communauté"
+  ];
+  String dropValue = "Jeune";
+
 
   final _formKey = GlobalKey<FormState>();
   String error = '';
@@ -50,7 +60,6 @@ class _SignRegisterState extends State<SignRegister> {
   Widget build(BuildContext context) {
     return loading ? Loading() :
     Scaffold(
-     //backgroundColor: Colors.blue,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
@@ -65,15 +74,16 @@ class _SignRegisterState extends State<SignRegister> {
           )
         ],
       ),
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Container(
           color: Colors.white,
           padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
           child: Form(
             key: _formKey,
-            child: Center(
               child: Column(
-                children: [
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
                   //Box prénom
                   !showSignIn ?  TextFormField(
                     controller: controllerName,
@@ -81,6 +91,7 @@ class _SignRegisterState extends State<SignRegister> {
                     validator: (value) => value!.isEmpty ? "Enter your name" : null,
                   ) : Container(),
                   !showSignIn ? SizedBox(height: 10.0) : Container(),
+
                   //Box Nom de Famille
                   !showSignIn ?  TextFormField(
                     controller: controllerLastName,
@@ -88,10 +99,30 @@ class _SignRegisterState extends State<SignRegister> {
                     validator: (value) => value!.isEmpty ? "Enter your name" : null,
                   ) : Container(),
                   !showSignIn ? SizedBox(height: 10.0) : Container(),
-                  //Box choix de rôles
-                  //!showSignIn ? DropDownButton() : Container(),
 
+                  //Box choix de rôles
+                  !showSignIn ? DropdownButton(
+                    value: dropValue,
+                    icon: Icon(
+                      Icons.keyboard_arrow_down_outlined,
+                      color: blueCodeurs,
+                    ),
+                    style: TextStyle(color: blueCodeurs),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropValue = newValue!;
+                      });
+                    },
+                    items: items.map((String value) {
+                      return DropdownMenuItem(
+                        child: Text(value),
+                        value: value,
+                      );
+                    }).toList(),
+                  )
+                   : Container(),
                   !showSignIn ? SizedBox(height: 10.0) : Container(),
+
                   //Box email
                   TextFormField(
                     controller: controllerEmail,
@@ -99,6 +130,7 @@ class _SignRegisterState extends State<SignRegister> {
                     validator: (value) => value!.isEmpty ? "Enter an email" : null,
                   ),
                   SizedBox(height: 10.0),
+
                   //Box mot de passe
                   TextFormField(
                     controller: controllerPassword,
@@ -107,9 +139,10 @@ class _SignRegisterState extends State<SignRegister> {
                     validator: (value) => value!.length < 6 ? "Enter a password with 6 character minimum" : null,
                   ),
                   SizedBox(height: 10.0),
+
                   //Bouton Connexion/Création de compte
                   ElevatedButton(
-                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(blueCodeurs)),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(greenCodeurs)),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()){
                           setState(() => loading = true);
@@ -117,11 +150,12 @@ class _SignRegisterState extends State<SignRegister> {
                           var email = controllerEmail.value.text;
                           var name = controllerName.value.text;
                           var lastname = controllerName.value.text;
+                          var dropDownRole = dropValue;
 
                           //call firebase auth
                           dynamic result = showSignIn
                               ? await _auth.signInEmailPassword(email, password)
-                              : await _auth.registerEmailPassword(name,lastname, email, password);
+                              : await _auth.registerEmailPassword(name,lastname, dropDownRole, email, password);
                           if(result == null){
                             setState(() {
                               loading = false;
@@ -140,11 +174,10 @@ class _SignRegisterState extends State<SignRegister> {
                   )
                 ],
               ),
-            ),
+
           ),
         ),
       )
     );
   }
 }
-

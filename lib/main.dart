@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:stage_10000_codeurs/models/userModel.dart';
 import 'package:stage_10000_codeurs/screens/splashScreenWrapper.dart';
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+//Application bloqué en format portrait
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     return StreamProvider<AppUser?>.value(
       value: ServiceAuthentification().user,
       initialData: null,
@@ -25,8 +29,8 @@ class MyApp extends StatelessWidget {
           child: Center(
             child: Stack(
               children: [
+                Background(),
                 SplashScreenWrapper(),
-                //Background(),
               ],
             ),
           )
