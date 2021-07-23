@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
+import 'package:stage_10000_codeurs/helpers/constants/constantConstant.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 
 class HomeScreenYoung extends StatelessWidget {
@@ -10,7 +11,7 @@ class HomeScreenYoung extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Text("Welcome",
+          title: Text("Bienvenue",
           style: TextStyle(color: blueCodeurs),),
           actions: <Widget>[
             TextButton.icon(
@@ -22,7 +23,7 @@ class HomeScreenYoung extends StatelessWidget {
                   color: blueCodeurs,
                 ),
                 label: Text(
-                  "Logout",
+                  logOut,
                   style: TextStyle(color: blueCodeurs),
                 ))
           ],

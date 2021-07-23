@@ -9,6 +9,7 @@ class AppUserData {
   final String name;
   final String lastname;
   final String dropDownRole;
+  final String email;
 
-  AppUserData({required this.uid, required this.name, required this.lastname, required this.dropDownRole});
+  AppUserData({required this.uid, required this.name, required this.lastname, required this.dropDownRole, required this.email});
 }

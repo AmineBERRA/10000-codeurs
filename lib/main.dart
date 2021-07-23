@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
           child: Center(
             child: Stack(
               children: [
+                SplashScreen(),
                 Background(),
-                SplashScreenWrapper(),
               ],
             ),
           )

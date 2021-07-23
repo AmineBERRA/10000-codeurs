@@ -31,7 +31,7 @@ class ServiceAuthentification {
         await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
 
-      await ServiceDatabase(user!.uid).savaUser(name, lastname, dropDownRole);
+      await ServiceDatabase(user!.uid).savaUser(name, lastname, dropDownRole, email);
       return _userFromFirebaseUser(user);
     }catch(exception){
       print(exception.toString());

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
+import 'package:stage_10000_codeurs/helpers/constants/constantConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/textInputDecoration.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 import 'loading.dart';
@@ -62,12 +63,12 @@ class _SignRegisterState extends State<SignRegister> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
-        title: Text(showSignIn ? "Sign In" : "Register",
+        title: Text(showSignIn ? signIn : register,
         style: TextStyle(color: blueCodeurs),),
         actions: <Widget>[
           TextButton.icon(
             icon: Icon(Icons.person,color: blueCodeurs,),
-            label: Text(showSignIn ? "Register" : "Sign In",
+            label: Text(showSignIn ? register : signIn,
               style: TextStyle(color: blueCodeurs),),
             onPressed: () => toggleView(),
           )
@@ -81,7 +82,7 @@ class _SignRegisterState extends State<SignRegister> {
           child: Form(
             key: _formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   //Box prénom
                   !showSignIn ?  TextFormField(
@@ -126,7 +127,7 @@ class _SignRegisterState extends State<SignRegister> {
                   TextFormField(
                     controller: controllerEmail,
                     decoration: textInputDecoration.copyWith(hintText: "Email"),
-                    validator: (value) => value!.isEmpty ? "Enter an email" : null,
+                    validator: (value) => value!.isEmpty ? "Entrer un email" : null,
                   ),
                   SizedBox(height: 10.0),
 
@@ -135,7 +136,7 @@ class _SignRegisterState extends State<SignRegister> {
                     controller: controllerPassword,
                     decoration: textInputDecoration.copyWith(hintText: "Mot de Passe"),
                     obscureText: true,
-                    validator: (value) => value!.length < 6 ? "Enter a password with 6 character minimum" : null,
+                    validator: (value) => value!.length < 6 ? "Entrer un mot de passe de 6 caractère minimum" : null,
                   ),
                   SizedBox(height: 10.0),
 
@@ -163,17 +164,16 @@ class _SignRegisterState extends State<SignRegister> {
                           }
                         }
                       },
-                      child: Text(showSignIn ? "Sign In" : "Register")
+                      child: Text(showSignIn ? signIn : register)
                   ),
 
                   SizedBox(height: 10.0),
                   Text(
                     error,
-                    style: TextStyle(color: Colors.red),
-                  )
+                    style: TextStyle(color: redCodeurs),
+                  ),
                 ],
               ),
-
           ),
         ),
       )

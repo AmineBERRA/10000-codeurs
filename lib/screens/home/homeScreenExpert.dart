@@ -31,8 +31,7 @@ class HomeScreenExpert extends StatelessWidget {
             child: Container(
               color: Colors.white,
               child: Text(
-                "Bienvenue sur l'application 10 000 codeurs"
-                    "Section Jeune",
+                "Bienvenue sur l'application 10 000 codeurs Section Expert",
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
