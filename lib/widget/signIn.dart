@@ -14,7 +14,6 @@ class SignRegister extends StatefulWidget {
 }
 
 class _SignRegisterState extends State<SignRegister> {
-
   final ServiceAuthentification _auth = ServiceAuthentification();
 
   var items = <String>[
@@ -24,7 +23,6 @@ class _SignRegisterState extends State<SignRegister> {
     "Responsable de communauté"
   ];
   String dropValue = "Jeune";
-
 
   final _formKey = GlobalKey<FormState>();
   String error = '';
@@ -44,6 +42,7 @@ class _SignRegisterState extends State<SignRegister> {
     controllerPassword.dispose();
     super.dispose();
   }
+
   void toggleView() {
     setState(() {
       _formKey.currentState?.reset();
@@ -58,50 +57,80 @@ class _SignRegisterState extends State<SignRegister> {
 
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() :
-    Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        title: Text(showSignIn ? signIn : register,
-        style: TextStyle(color: blueCodeurs),),
-        actions: <Widget>[
-          TextButton.icon(
-            icon: Icon(Icons.person,color: blueCodeurs,),
-            label: Text(showSignIn ? register : signIn,
-              style: TextStyle(color: blueCodeurs),),
-            onPressed: () => toggleView(),
-          )
-        ],
-      ),
-      resizeToAvoidBottomInset: false,
-      body: Center(
-        child: Container(
-          color: Colors.white,
-          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
-          child: Form(
-            key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  //Box prénom
-                  !showSignIn ?  TextFormField(
-                    controller: controllerName,
-                    decoration: textInputDecoration.copyWith(hintText: "Prénom"),
-                    validator: (value) => value!.isEmpty ? "Enter your name" : null,
-                  ) : Container(),
-                  !showSignIn ? SizedBox(height: 10.0) : Container(),
+    return loading
+        ? Loading()
+        : Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0.0,
+              title: Text(
+                showSignIn ? signIn : register,
+                style: TextStyle(color: blueCodeurs),
+              ),
+              actions: <Widget>[
+                TextButton.icon(
+                  icon: Icon(
+                    Icons.person,
+                    color: blueCodeurs,
+                  ),
+                  label: Text(
+                    showSignIn ? register : signIn,
+                    style: TextStyle(color: blueCodeurs),
+                  ),
+                  onPressed: () => toggleView(),
+                )
+              ],
+            ),
+            resizeToAvoidBottomInset: false,
+            body: SingleChildScrollView(
+                child: Center(
+              child: Container(
+                color: white,
+                padding:
+                    EdgeInsets.symmetric(vertical: 150.0, horizontal: 30.0),
+                child: Container(
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    color: redCodeurs,
+                    elevation: 20,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 11.0, horizontal: 30.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            //Box prénom
+                            !showSignIn
+                                ? TextFormField(
+                                    controller: controllerName,
+                                    decoration: textInputDecoration.copyWith(
+                                        hintText: "Prénom"),
+                                    validator: (value) => value!.isEmpty
+                                        ? "Enter your name"
+                                        : null,
+                                  )
+                                : Container(),
+                            !showSignIn ? SizedBox(height: 10.0) : Container(),
 
-                  //Box Nom de Famille
-                  !showSignIn ?  TextFormField(
-                    controller: controllerLastName,
-                    decoration: textInputDecoration.copyWith(hintText: "Nom"),
-                    validator: (value) => value!.isEmpty ? "Enter your name" : null,
-                  ) : Container(),
-                  !showSignIn ? SizedBox(height: 10.0) : Container(),
+                            //Box Nom de Famille
+                            !showSignIn
+                                ? TextFormField(
+                                    controller: controllerLastName,
+                                    decoration: textInputDecoration.copyWith(
+                                        hintText: "Nom"),
+                                    validator: (value) => value!.isEmpty
+                                        ? "Enter your name"
+                                        : null,
+                                  )
+                                : Container(),
+                            !showSignIn ? SizedBox(height: 10.0) : Container(),
 
-                  //Box choix de rôles
-                  !showSignIn ? DropdownButton(
+                            //Box choix de rôles
+                            /*!showSignIn ? DropdownButton(
                     value: dropValue,
                     icon: Icon(
                       Icons.keyboard_arrow_down_outlined,
@@ -121,62 +150,92 @@ class _SignRegisterState extends State<SignRegister> {
                     }).toList(),
                   )
                    : Container(),
-                  !showSignIn ? SizedBox(height: 10.0) : Container(),
+                  !showSignIn ? SizedBox(height: 10.0) : Container(),*/
 
-                  //Box email
-                  TextFormField(
-                    controller: controllerEmail,
-                    decoration: textInputDecoration.copyWith(hintText: "Email"),
-                    validator: (value) => value!.isEmpty ? "Entrer un email" : null,
+                            //Box email
+                            TextFormField(
+                              controller: controllerEmail,
+                              decoration: textInputDecoration.copyWith(
+                                  hintText: "Email"),
+                              validator: (value) =>
+                                  value!.isEmpty ? "Entrer un email" : null,
+                            ),
+                            SizedBox(height: 10.0),
+
+                            //Box mot de passe
+                            TextFormField(
+                              controller: controllerPassword,
+                              decoration: textInputDecoration.copyWith(
+                                  hintText: "Mot de Passe"),
+                              obscureText: true,
+                              validator: (value) => value!.length < 6
+                                  ? "Entrer un mot de passe de 6 caractère minimum"
+                                  : null,
+                            ),
+                            SizedBox(height: 10.0),
+
+                            //Bouton Connexion/Création de compte
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            greenCodeurs)),
+                                onPressed: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() => loading = true);
+                                    var password =
+                                        controllerPassword.value.text;
+                                    var email = controllerEmail.value.text;
+                                    var name = controllerName.value.text;
+                                    var lastname =
+                                        controllerLastName.value.text;
+                                    var dropDownRole = dropValue;
+
+                                    //call firebase auth
+                                    dynamic result = showSignIn
+                                        ? await _auth.signInEmailPassword(
+                                            email, password)
+                                        : await _auth.registerEmailPassword(
+                                            name,
+                                            lastname,
+                                            dropDownRole,
+                                            email,
+                                            password);
+                                    if (result == null) {
+                                      setState(() {
+                                        loading = false;
+                                        error =
+                                            "Please supply a valid email or password";
+                                      });
+                                    }
+                                  }
+                                },
+                                child: Text(showSignIn ? signIn : register)),
+
+                            SizedBox(height: 10.0),
+                            Text(
+                              error,
+                              style: TextStyle(color: white),
+                            ),
+                            TextButton(
+                                style: TextButton.styleFrom(
+                                    textStyle: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                    color: blueCodeurs)),
+                                onPressed: () => toggleView(),
+                                child: Text(showSignIn
+                                    ? "Vous n'avez pas de compte \n" + register
+                                    : "Vous avez déjà un compte \n" + signIn,
+                                textAlign: TextAlign.center,))
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  SizedBox(height: 10.0),
-
-                  //Box mot de passe
-                  TextFormField(
-                    controller: controllerPassword,
-                    decoration: textInputDecoration.copyWith(hintText: "Mot de Passe"),
-                    obscureText: true,
-                    validator: (value) => value!.length < 6 ? "Entrer un mot de passe de 6 caractère minimum" : null,
-                  ),
-                  SizedBox(height: 10.0),
-
-                  //Bouton Connexion/Création de compte
-                  ElevatedButton(
-                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(greenCodeurs)),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()){
-                          setState(() => loading = true);
-                          var password  = controllerPassword.value.text;
-                          var email = controllerEmail.value.text;
-                          var name = controllerName.value.text;
-                          var lastname = controllerLastName.value.text;
-                          var dropDownRole = dropValue;
-
-                          //call firebase auth
-                          dynamic result = showSignIn
-                              ? await _auth.signInEmailPassword(email, password)
-                              : await _auth.registerEmailPassword(name,lastname, dropDownRole, email, password);
-                          if(result == null){
-                            setState(() {
-                              loading = false;
-                              error = "Please supply a valid email or password";
-                            });
-                          }
-                        }
-                      },
-                      child: Text(showSignIn ? signIn : register)
-                  ),
-
-                  SizedBox(height: 10.0),
-                  Text(
-                    error,
-                    style: TextStyle(color: redCodeurs),
-                  ),
-                ],
+                ),
               ),
-          ),
-        ),
-      )
-    );
+            )),
+          );
   }
 }

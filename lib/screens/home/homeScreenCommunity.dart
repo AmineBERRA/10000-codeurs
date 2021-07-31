@@ -31,7 +31,7 @@ class HomeScreenCommunity extends StatelessWidget {
             child: Container(
               color: Colors.white,
               child: Text(
-                "Bienvenue sur l'application 10 000 codeurs"
+                "Bienvenue sur l'application 10 000 codeurs \n"
                     "Section Responsable de Communauté",
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,

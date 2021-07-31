@@ -25,12 +25,15 @@ class MyApp extends StatelessWidget {
       initialData: null,
       child:MaterialApp(
         debugShowCheckedModeBanner : false,
-        home:  Container(
-          child: Center(
+        home:  Center(
+          child: Container(
             child: Stack(
               children: [
-                SplashScreen(),
-                Background(),
+                Container(
+                    child: Background()),
+                Container(
+                    child:SplashScreen()),
+
               ],
             ),
           )

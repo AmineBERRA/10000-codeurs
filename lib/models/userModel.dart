@@ -1,5 +1,5 @@
 class AppUser{
-  final String uid;
+  final String? uid;
 
   AppUser({required this.uid});
 }
