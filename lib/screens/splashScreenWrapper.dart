@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stage_10000_codeurs/models/userModel.dart';
 import 'package:stage_10000_codeurs/screens/auth/authentificationScreen.dart';
+import 'package:stage_10000_codeurs/services/authentication.dart';
 import 'package:stage_10000_codeurs/screens/home/homeScreenYoung.dart';
-
 import 'home/homeScreenCommunity.dart';
 import 'home/homeScreenExpert.dart';
 import 'home/homeScreenManagement.dart';
@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final user = Provider.of<AppUser?>(context);
     if (user == null) {
       return AuthenticateScreen();
-    } else {
+    } else {/*
       if (user == choiceRole.where('role', isEqualTo: 'Jeune').snapshots()) {
         print("Jeune");
         return HomeScreenYoung();
@@ -44,10 +44,11 @@ class _SplashScreenState extends State<SplashScreen> {
             }
           }
         }
-      }
+      }*/
 
       print("Failed");
       return HomeScreenYoung();
+      //return BaseWrapper();
       /*  return Scaffold(
         body: Center(
           child: Text("Fail"),
@@ -86,3 +87,19 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 }
+
+/*
+class BaseWrapper extends StatelessWidget {
+  const BaseWrapper({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    _getRole() async{
+      final token = await Provider.of<AppUser>(context);
+    }
+
+    return Container();
+  }
+}
+*/
+

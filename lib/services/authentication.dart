@@ -13,6 +13,12 @@ class ServiceAuthentification {
     return _auth.authStateChanges().map(_userFromFirebaseUser);
   }
 
+  Future<Map<String,dynamic>?> get claims async{
+    final user = _auth.currentUser;
+    final token = await user!.getIdTokenResult(true);
+    return (token.claims);
+  }
+
   Future signInEmailPassword(String email,String password) async{
     try{
       UserCredential result =
