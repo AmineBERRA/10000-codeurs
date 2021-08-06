@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
+import 'package:stage_10000_codeurs/screens/auth/authentificationScreen.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 
 class HomeScreenExpert extends StatelessWidget {
@@ -15,7 +16,13 @@ class HomeScreenExpert extends StatelessWidget {
           actions: <Widget>[
             TextButton.icon(
                 onPressed: () async {
-                  await _auth.signOut();
+                  await _auth.signOut().whenComplete(() {
+                    Navigator.push(context, MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                          return AuthenticateScreen();
+                        }
+                    ));
+                  });
                 },
                 icon: Icon(
                   Icons.logout_outlined,

@@ -6,6 +6,7 @@ import 'package:stage_10000_codeurs/models/userModel.dart';
 import 'package:stage_10000_codeurs/screens/splashScreenWrapper.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 import 'package:stage_10000_codeurs/widget/background.dart';
+import 'package:stage_10000_codeurs/widget/signIn.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
                 Container(
                     child: Background()),
                 Container(
-                    child:SplashScreen()),
+                    child:SplashScreenWrapper()),
 
               ],
             ),

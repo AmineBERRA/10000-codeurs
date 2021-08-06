@@ -1,8 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/constantConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/textInputDecoration.dart';
+import 'package:stage_10000_codeurs/screens/home/homeScreenAdmin.dart';
+import 'package:stage_10000_codeurs/screens/home/homeScreenExpert.dart';
+import 'package:stage_10000_codeurs/screens/home/homeScreenManagement.dart';
+import 'package:stage_10000_codeurs/screens/home/homeScreenMentor.dart';
+import 'package:stage_10000_codeurs/screens/home/homeScreenYoung.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 import 'loading.dart';
 
@@ -11,19 +17,24 @@ class SignRegister extends StatefulWidget {
 
   @override
   _SignRegisterState createState() => _SignRegisterState();
+/*@override
+  State<StatefulWidget> createState() {
+    return _SignRegisterState();
+  }*/
 }
 
 class _SignRegisterState extends State<SignRegister> {
   final ServiceAuthentification _auth = ServiceAuthentification();
 
-  var items = <String>[
+  /*var items = <String>[
     "Jeune",
     "Expert",
     "Direction",
     "Responsable de communauté"
-  ];
-  String dropValue = "Jeune";
-
+  ];*/
+  String roleValue = "Jeune";
+  CollectionReference roleChoice =
+      FirebaseFirestore.instance.collection('users');
   final _formKey = GlobalKey<FormState>();
   String error = '';
   bool loading = false;
@@ -181,31 +192,55 @@ class _SignRegisterState extends State<SignRegister> {
                                         MaterialStateProperty.all<Color>(
                                             greenCodeurs)),
                                 onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
+                                  if (_formKey.currentState?.validate() == true) {
                                     setState(() => loading = true);
-                                    var password =
-                                        controllerPassword.value.text;
+                                    var password = controllerPassword.value.text;
                                     var email = controllerEmail.value.text;
                                     var name = controllerName.value.text;
-                                    var lastname =
-                                        controllerLastName.value.text;
-                                    var dropDownRole = dropValue;
+                                    var lastname = controllerLastName.value.text;
+                                    //var role = roleValue;
 
                                     //call firebase auth
                                     dynamic result = showSignIn
-                                        ? await _auth.signInEmailPassword(
-                                            email, password)
+                                        ? await _auth.signInEmailPassword(email, password)
+                                        /*.then((value) {
+                                            if (value != null) {
+                                              Navigator.push(context,
+                                                  MaterialPageRoute<void>(
+                                                      builder: (BuildContext
+                                                          context) {
+                                                if (value ==
+                                                    roleChoice.where('role',
+                                                        isEqualTo: 'Mentor'))
+                                                  return HomeScreenMentor();
+                                                else if (value ==
+                                                    roleChoice.where('role',
+                                                        isEqualTo: 'admin'))
+                                                  return HomeScreenAdmin();
+                                                else if (value ==
+                                                    roleChoice.where('role',
+                                                        isEqualTo: 'Direction'))
+                                                  return HomeScreenManagement();
+                                                else if (value ==
+                                                    roleChoice.where('role',
+                                                        isEqualTo: 'Expert'))
+                                                  return HomeScreenExpert();
+                                                else
+                                                  return HomeScreenYoung();
+                                              }));
+                                            }
+                                          })*/
                                         : await _auth.registerEmailPassword(
                                             name,
                                             lastname,
-                                            dropDownRole,
                                             email,
-                                            password);
+                                            password,
+                                            roleValue);
                                     if (result == null) {
                                       setState(() {
                                         loading = false;
                                         error =
-                                            "Please supply a valid email or password";
+                                            "Veuillez fournir un email ou un mot de passe valide";
                                       });
                                     }
                                   }
@@ -222,12 +257,15 @@ class _SignRegisterState extends State<SignRegister> {
                                     textStyle: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold,
-                                    color: blueCodeurs)),
+                                        color: blueCodeurs)),
                                 onPressed: () => toggleView(),
-                                child: Text(showSignIn
-                                    ? "Vous n'avez pas de compte \n" + register
-                                    : "Vous avez déjà un compte \n" + signIn,
-                                textAlign: TextAlign.center,))
+                                child: Text(
+                                  showSignIn
+                                      ? "Vous n'avez pas de compte \n" +
+                                          register
+                                      : "Vous avez déjà un compte \n" + signIn,
+                                  textAlign: TextAlign.center,
+                                ))
                           ],
                         ),
                       ),
