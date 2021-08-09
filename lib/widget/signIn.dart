@@ -4,11 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/constantConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/textInputDecoration.dart';
-import 'package:stage_10000_codeurs/screens/home/homeScreenAdmin.dart';
-import 'package:stage_10000_codeurs/screens/home/homeScreenExpert.dart';
-import 'package:stage_10000_codeurs/screens/home/homeScreenManagement.dart';
-import 'package:stage_10000_codeurs/screens/home/homeScreenMentor.dart';
-import 'package:stage_10000_codeurs/screens/home/homeScreenYoung.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 import 'loading.dart';
 
@@ -33,8 +28,7 @@ class _SignRegisterState extends State<SignRegister> {
     "Responsable de communauté"
   ];*/
   String roleValue = "Jeune";
-  CollectionReference roleChoice =
-      FirebaseFirestore.instance.collection('users');
+
   final _formKey = GlobalKey<FormState>();
   String error = '';
   bool loading = false;
@@ -104,7 +98,7 @@ class _SignRegisterState extends State<SignRegister> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    color: redCodeurs,
+                    color: yellowCodeurs,
                     elevation: 20,
                     child: Container(
                       padding: EdgeInsets.symmetric(
@@ -117,6 +111,7 @@ class _SignRegisterState extends State<SignRegister> {
                             //Box prénom
                             !showSignIn
                                 ? TextFormField(
+                              keyboardType: TextInputType.name,
                                     controller: controllerName,
                                     decoration: textInputDecoration.copyWith(
                                         hintText: "Prénom"),
@@ -165,6 +160,7 @@ class _SignRegisterState extends State<SignRegister> {
 
                             //Box email
                             TextFormField(
+                              keyboardType: TextInputType.emailAddress,
                               controller: controllerEmail,
                               decoration: textInputDecoration.copyWith(
                                   hintText: "Email"),
@@ -236,6 +232,7 @@ class _SignRegisterState extends State<SignRegister> {
                                             email,
                                             password,
                                             roleValue);
+                                        print(email);
                                     if (result == null) {
                                       setState(() {
                                         loading = false;

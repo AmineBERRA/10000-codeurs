@@ -25,7 +25,7 @@ class ServiceAuthentification {
   Future signInEmailPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+          email: email.trim(), password: password);
       User? user = result.user;
       return _userFromFirebaseUser(user);
     } catch (exception) {
@@ -34,20 +34,6 @@ class ServiceAuthentification {
     }
   }
 
- /* Future registerEmailPassword(String name, String lastname, String role, String email,String password) async{
-    try{
-      UserCredential result =
-      await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
-      User? user = result.user;
-
-      await ServiceDatabase(user!.uid).saveUser(name, lastname, email, role);
-      return _userFromFirebaseUser(user);
-    }on FirebaseAuthException catch(exception){
-      print(exception.code);
-      print(exception.message);
-      return null;
-    }
-  }*/
   Future registerEmailPassword(String email, String password, String name, String lastName, String role) async {
     try{
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);

@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:55766277583:android:d041056da35d70244fc6ba",
+        "mobilesdk_app_id": "1:55766277583:android:4f0fa00dd4b47b5d4fc6ba",
         "android_client_info": {
           "package_name": "com.Amine.app10000_codeurs"
         }
@@ -29,6 +29,13 @@
             {
               "client_id": "55766277583-4fvs05ffq264c1tuucrs566apuk7dal9.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "55766277583-bdu6cjlqffc6aio2h3rtejs44d4lp4r1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Amine.app10000Codeurs"
+              }
             }
           ]
         }

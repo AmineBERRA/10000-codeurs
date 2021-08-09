@@ -30,33 +30,5 @@ class ServiceDatabase {
         email: snapshot['email'],
         role: snapshot['role']);
   }
-/*
-  Stream<RoleData> get role {
-    return roleCollection.doc(uid).snapshots().map(_roleFromSnapshot);
-  }
-  Future<void> savaRole(bool jeune, bool admin, bool expert, bool direction, bool mentor) async {
-    return await roleCollection.doc(uid).set({
-      'admin': admin,
-      'jeune': jeune,
-      'expert': expert,
-      'mentor': mentor,
-      'direction': direction,
-    },
-      SetOptions(merge: true),
-    );
-  }
-
-  RoleData _roleFromSnapshot(DocumentSnapshot snapshot) {
-    var data = snapshot.data();
-    if(data == null) throw Exception("Utilisateur Inconnu");
-    return RoleData(
-      uid: uid,
-      admin: snapshot['admin'],
-      jeune: snapshot['jeune'],
-      expert: snapshot['expert'],
-      mentor: snapshot['mentor'],
-      direction: snapshot['direction']
-    );
-  }*/
 
 }
