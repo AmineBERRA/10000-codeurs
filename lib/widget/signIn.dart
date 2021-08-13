@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/constantConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/textInputDecoration.dart';
+import 'package:stage_10000_codeurs/screens/home/homeScreenAdmin.dart';
+import 'package:stage_10000_codeurs/screens/home/homeScreenExpert.dart';
+import 'package:stage_10000_codeurs/screens/home/homeScreenManagement.dart';
+import 'package:stage_10000_codeurs/screens/home/homeScreenMentor.dart';
+import 'package:stage_10000_codeurs/screens/home/homeScreenYoung.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 import 'loading.dart';
 
@@ -20,6 +25,7 @@ class SignRegister extends StatefulWidget {
 
 class _SignRegisterState extends State<SignRegister> {
   final ServiceAuthentification _auth = ServiceAuthentification();
+  final CollectionReference roleChoice = FirebaseFirestore.instance.collection('users');
 
   /*var items = <String>[
     "Jeune",
@@ -111,7 +117,7 @@ class _SignRegisterState extends State<SignRegister> {
                             //Box prénom
                             !showSignIn
                                 ? TextFormField(
-                              keyboardType: TextInputType.name,
+                                    keyboardType: TextInputType.name,
                                     controller: controllerName,
                                     decoration: textInputDecoration.copyWith(
                                         hintText: "Prénom"),
@@ -188,51 +194,49 @@ class _SignRegisterState extends State<SignRegister> {
                                         MaterialStateProperty.all<Color>(
                                             greenCodeurs)),
                                 onPressed: () async {
-                                  if (_formKey.currentState?.validate() == true) {
+                                  if (_formKey.currentState?.validate() ==
+                                      true) {
                                     setState(() => loading = true);
-                                    var password = controllerPassword.value.text;
+                                    var password =
+                                        controllerPassword.value.text;
                                     var email = controllerEmail.value.text;
                                     var name = controllerName.value.text;
-                                    var lastname = controllerLastName.value.text;
-                                    //var role = roleValue;
+                                    var lastname =
+                                        controllerLastName.value.text;
 
                                     //call firebase auth
                                     dynamic result = showSignIn
-                                        ? await _auth.signInEmailPassword(email, password)
-                                        /*.then((value) {
+                                        ? await _auth.signInEmailPassword(
+                                            email, password)
+                                        .then((value) {
                                             if (value != null) {
-                                              Navigator.push(context,
-                                                  MaterialPageRoute<void>(
-                                                      builder: (BuildContext
-                                                          context) {
-                                                if (value ==
-                                                    roleChoice.where('role',
-                                                        isEqualTo: 'Mentor'))
-                                                  return HomeScreenMentor();
-                                                else if (value ==
-                                                    roleChoice.where('role',
-                                                        isEqualTo: 'admin'))
-                                                  return HomeScreenAdmin();
-                                                else if (value ==
-                                                    roleChoice.where('role',
-                                                        isEqualTo: 'Direction'))
-                                                  return HomeScreenManagement();
-                                                else if (value ==
-                                                    roleChoice.where('role',
-                                                        isEqualTo: 'Expert'))
-                                                  return HomeScreenExpert();
-                                                else
-                                                  return HomeScreenYoung();
-                                              }));
+                                              roleChoice.where('email', isEqualTo: email).get().then((userData) {
+                                                Navigator.push(context, MaterialPageRoute(
+                                                    builder: (BuildContext context){
+                                                      if(userData.docs[0]['role'] == 'admin'){
+                                                        print("admin" +userData.docs[0]['role']);
+                                                        return HomeScreenAdmin();
+                                                      }else if(userData.docs[0]['role'] == 'Expert'){
+                                                        print("expert" +userData.docs[0]['role']);
+                                                        return HomeScreenExpert();
+                                                      }else if(userData.docs[0]['role'] == 'Direction'){
+                                                        print("direction" +userData.docs[0]['role']);
+                                                        return HomeScreenManagement();
+                                                      }else if(userData.docs[0]['role'] == 'Mentor'){
+                                                        print("mentor" +userData.docs[0]['role']);
+                                                        return HomeScreenMentor();
+                                                      }else{
+                                                        print("jeune" +userData.docs[0]['role']);
+                                                        return HomeScreenYoung();
+                                                      }
+                                                    }
+                                                ));
+                                              });
                                             }
-                                          })*/
+                                          })
                                         : await _auth.registerEmailPassword(
-                                            name,
-                                            lastname,
-                                            email,
-                                            password,
-                                            roleValue);
-                                        print(email);
+                                            email,password,name,lastname,roleValue);
+                                    print(email);
                                     if (result == null) {
                                       setState(() {
                                         loading = false;
@@ -247,7 +251,7 @@ class _SignRegisterState extends State<SignRegister> {
                             SizedBox(height: 10.0),
                             Text(
                               error,
-                              style: TextStyle(color: white),
+                              style: TextStyle(color: redCodeurs),
                             ),
                             TextButton(
                                 style: TextButton.styleFrom(

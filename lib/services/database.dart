@@ -12,11 +12,12 @@ class ServiceDatabase {
   Stream<AppUserData> get user {
     return userCollection.doc(uid).snapshots().map(_userFromSnapshot);
   }
-
+//Stream<QuerySnapshot> getCollectionData() => userCollection.snapshots();
+  //Value, String value) => userCollection.where(dbValue,isEqualTo: value);
+  
   Future<void> saveUser(
       String name, String lastname, String email, String role) async {
-    return await userCollection.doc(uid).set(
-      {'name': name, 'lastname': lastname, 'email': email, 'role': role},
+    return await userCollection.doc(uid).set({'name': name, 'lastname': lastname, 'email': email, 'role': role},
     );
   }
 

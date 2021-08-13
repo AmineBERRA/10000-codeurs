@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:stage_10000_codeurs/models/userModel.dart';
+import 'package:stage_10000_codeurs/screens/auth/authentificationScreen.dart';
 import 'package:stage_10000_codeurs/screens/splashScreenWrapper.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 import 'package:stage_10000_codeurs/widget/background.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
 //Application bloqué en format portrait
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-    return StreamProvider<AppUser?>.value(
+    return StreamProvider<AppUserData?>.value(
       value: ServiceAuthentification().user,
       initialData: null,
       child:MaterialApp(
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
                 Container(
                     child: Background()),
                 Container(
-                    child:SplashScreenWrapper()),
+                    child:AuthenticateScreen()),
 
               ],
             ),
