@@ -1,13 +1,14 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stage_10000_codeurs/models/userModel.dart';
 import 'package:stage_10000_codeurs/screens/auth/authentificationScreen.dart';
-import 'package:stage_10000_codeurs/screens/home/homeScreenYoung.dart';
+import 'package:stage_10000_codeurs/screens/home/Young/homeScreenYoung.dart';
 
-import 'home/homeScreenAdmin.dart';
-import 'home/homeScreenExpert.dart';
-import 'home/homeScreenManagement.dart';
-import 'home/homeScreenMentor.dart';
+import 'home/Admin/homeScreenAdmin.dart';
+import 'home/Expert/homeScreenExpert.dart';
+import 'home/Management/homeScreenManagement.dart';
+import 'home/Mentor/homeScreenMentor.dart';
 
 class SplashScreenWrapper extends StatelessWidget {
   //final CollectionReference roleChoice = FirebaseFirestore.instance.collection('users');
@@ -45,3 +46,4 @@ class SplashScreenWrapper extends StatelessWidget {
   }
 }
 //return HomeScreenYoung();
+*/

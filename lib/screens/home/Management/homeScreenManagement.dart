@@ -3,13 +3,14 @@ import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/screens/auth/authentificationScreen.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 
-class HomeScreenExpert extends StatelessWidget {
+class HomeScreenManagement extends StatelessWidget {
   final ServiceAuthentification _auth = ServiceAuthentification();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           title: Text("Welcome",
             style: TextStyle(color: blueCodeurs),),
@@ -38,7 +39,8 @@ class HomeScreenExpert extends StatelessWidget {
             child: Container(
               color: Colors.white,
               child: Text(
-                "Bienvenue sur l'application 10 000 codeurs Section Expert",
+                "Bienvenue sur l'application 10 000 codeurs"
+                    "Section Direction",
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
