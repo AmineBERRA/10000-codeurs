@@ -41,5 +41,8 @@ class ServiceDatabase {
     }).then((value) => print("Post Added"))
         .catchError((error) => print("Failed to add post: $error"));
 
+  Stream<DocumentSnapshot> getPost(String docId) => postCollection.doc(docId).snapshots();
+
+  Stream<QuerySnapshot> getCollection() => postCollection.snapshots();
 
 }

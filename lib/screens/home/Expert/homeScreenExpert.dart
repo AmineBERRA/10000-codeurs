@@ -5,6 +5,7 @@ import 'package:stage_10000_codeurs/screens/auth/authentificationScreen.dart';
 import 'package:stage_10000_codeurs/screens/home/Expert/editPost.dart';
 import 'package:stage_10000_codeurs/services/authentication.dart';
 import 'package:stage_10000_codeurs/widget/loading.dart';
+import 'package:stage_10000_codeurs/widget/myAppBar.dart';
 
 class HomeScreenExpert extends StatelessWidget {
   final String docId;
@@ -17,34 +18,7 @@ class HomeScreenExpert extends StatelessWidget {
   Widget build(BuildContext context) {
     var userDetail = FirebaseFirestore.instance.collection("users");
     return Scaffold(
-        appBar: AppBar(
-            automaticallyImplyLeading: false,
-            iconTheme: IconThemeData(color: Colors.black),
-          backgroundColor: Colors.white,
-          title: Text(
-            "Welcome",
-            style: TextStyle(color: blueCodeurs),
-          ),
-          actions: <Widget>[
-            TextButton.icon(
-                onPressed: () async {
-                  await _auth.signOut().whenComplete(() {
-                    Navigator.push(context, MaterialPageRoute<void>(
-                        builder: (BuildContext context) {
-                      return AuthenticateScreen();
-                    }));
-                  });
-                },
-                icon: Icon(
-                  Icons.logout_outlined,
-                  color: blueCodeurs,
-                ),
-                label: Text(
-                  "Logout",
-                  style: TextStyle(color: blueCodeurs),
-                ))
-          ],
-        ),
+        appBar: MyAppBar(context),
         body: Center(
           child: FutureBuilder<DocumentSnapshot>(
             future: userDetail.doc(docId).get(),
