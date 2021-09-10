@@ -255,17 +255,6 @@ class _SignRegisterState extends State<SignRegister> {
                                       .then((val) {
                                         if(val){
                                           return HomeScreenYoung();
-                                          /*roleChoice.where('email', isEqualTo: email).get()
-                                              .then((user) {
-                                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                                                  if(user.docs[0]['role'] == 'Jeune'){
-                                                    print(user.docs[0]['role']);
-                                                    return HomeScreenYoung();
-                                                  }
-                                                  return HomeScreenYoung();
-
-                                                }));
-                                          });*/
                                         }
                                   });
                                   print(email);

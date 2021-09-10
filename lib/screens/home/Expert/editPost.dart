@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/constantConstant.dart';
 
@@ -18,7 +19,8 @@ class _EditPostState extends State<EditPost> {
   final controllerType = TextEditingController();
   final controllerDescription = TextEditingController();
   final controllerUseCase = TextEditingController();
-  bool showSignIn = true;
+  final controllerEmailAuthor = TextEditingController();
+  final controllerYoutube = TextEditingController();
 
   @override
   void dispose() {
@@ -26,6 +28,8 @@ class _EditPostState extends State<EditPost> {
     controllerType.dispose();
     controllerDescription.dispose();
     controllerUseCase.dispose();
+    controllerEmailAuthor.dispose();
+    controllerYoutube.dispose();
     super.dispose();
   }
 
@@ -37,160 +41,156 @@ class _EditPostState extends State<EditPost> {
       controllerType.text = '';
       controllerDescription.text = '';
       controllerUseCase.text = '';
+      controllerEmailAuthor.text = '';
+      controllerYoutube.text = '';
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: blueCodeurs),
-        backgroundColor: Colors.white,
-        title: Text(
-          "Retour",
-          style: TextStyle(color: blueCodeurs),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: blueCodeurs),
+          backgroundColor: Colors.white,
+          title: Text(
+            "Retour",
+            style: TextStyle(color: blueCodeurs),
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(40.0),
-          child: Center(
-            child: Form(
-              key: _key,
-              child: Column(
-                children: [
-                  TextFormField(
-                    maxLines: 1,
-                    keyboardType: TextInputType.text,
-                    textCapitalization: TextCapitalization.sentences,
-                    controller: controllerTitle,
-                    decoration: InputDecoration(
-                      hintText: "Titre",
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10.0),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(40.0),
+            child: Center(
+              child: Form(
+                key: _key,
+                child: Column(
+                  children: [
+                    //Titre
+                    TextFormField(
+                      maxLines: 1,
+                      keyboardType: TextInputType.text,
+                      textCapitalization: TextCapitalization.sentences,
+                      controller: controllerTitle,
+                      decoration: InputDecoration(
+                        hintText: "Titre",
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                      ),
+                      validator: (value) => value!.isEmpty
+                          ? "Entrer un Titre"
+                          : null,
+                      cursorHeight: 20.0,
                     ),
-                    validator: (value) => value!.isEmpty
-                        ? "Entrer un Titre"
-                        : null,
-                    cursorHeight: 20.0,
-                  ),
-                  SizedBox(height:10.0,),
-                  TextFormField(
-                    keyboardType: TextInputType.text,
-                    textCapitalization: TextCapitalization.sentences,
-                    controller: controllerType,
-                    decoration: InputDecoration(
-                      hintText: "Type",
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10.0),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
+                    SizedBox(height:10.0,),
+                    //Type
+                    TextFormField(
+                      keyboardType: TextInputType.text,
+                      textCapitalization: TextCapitalization.sentences,
+                      controller: controllerType,
+                      decoration: InputDecoration(
+                        hintText: "Type",
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                      ),
+                      validator: (value) => value!.isEmpty
+                          ? "Entrer un Type"
+                          : null,
+                      cursorHeight: 20.0,
                     ),
-                    validator: (value) => value!.isEmpty
-                        ? "Entrer un Type"
-                        : null,
-                    cursorHeight: 20.0,
-                  ),
-                  SizedBox(height:10.0,),
-                  TextFormField(
-                    maxLines: 10,
-                    keyboardType: TextInputType.multiline,
-                    textCapitalization: TextCapitalization.sentences,
-                    controller: controllerDescription,
-                    decoration: InputDecoration(
-                      hintText: "Description",
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10.0),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
+                    SizedBox(height:10.0,),
+                    //Description
+                    TextFormField(
+                      maxLines: 10,
+                      keyboardType: TextInputType.multiline,
+                      textCapitalization: TextCapitalization.sentences,
+                      controller: controllerDescription,
+                      decoration: InputDecoration(
+                        hintText: "Description",
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                      ),
+                      cursorHeight: 20.0,
+                      validator: (value) => value!.isEmpty
+                          ? "Entrer une Description"
+                          : null,
                     ),
-                    cursorHeight: 20.0,
-                    validator: (value) => value!.isEmpty
-                        ? "Entrer une Description"
-                        : null,
-                  ),
-                  SizedBox(height:10.0,),
-                  TextFormField(
-                    maxLines: 10,
-                    keyboardType: TextInputType.multiline,
-                    textCapitalization: TextCapitalization.sentences,
-                    controller: controllerUseCase,
-                    decoration: InputDecoration(
-                      hintText: "Cas d'utilisation",
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10.0),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
+                    SizedBox(height:10.0,),
+                    //Use Case
+                    TextFormField(
+                      maxLines: 10,
+                      keyboardType: TextInputType.multiline,
+                      textCapitalization: TextCapitalization.sentences,
+                      controller: controllerUseCase,
+                      decoration: InputDecoration(
+                        hintText: "Cas d'utilisation",
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                      ),
+                      cursorHeight: 20.0,
+                      validator: (value) => value!.isEmpty
+                          ? "Entrer un Cas d'utilisation"
+                          : null,
                     ),
-                    cursorHeight: 20.0,
-                    validator: (value) => value!.isEmpty
-                        ? "Entrer un Cas d'utilisation"
-                        : null,
-                  ),
-                  ElevatedButton.icon(
-                    icon: Icon(Icons.add),
-                    onPressed: (){
-                      _showDialog(context);
-                    },
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(greenCodeurs)),
-                    label: Text(
-                      "Créer",
-                      style: TextStyle(color: Colors.white),
-                  ))
-                ],
+                    SizedBox(height:10.0,),
+                    //Email Auteur
+                    TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: controllerEmailAuthor,
+                      decoration: InputDecoration(
+                        hintText: "Email de l'auteur",
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                      ),
+                      cursorHeight: 20.0,
+                      validator: (value) => value!.isEmpty
+                          ? "Entrer un Email"
+                          : null,
+                    ),
+                    SizedBox(height:10.0,),
+                    //Youtube Link
+                    TextFormField(
+                      keyboardType: TextInputType.url,
+                      controller: controllerYoutube,
+                      decoration: InputDecoration(
+                        hintText: "Lien Youtube",
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                      ),
+                      cursorHeight: 20.0,
+                      validator: (value) => value!.isEmpty
+                          ? "Entrer un lien Youtube"
+                          : null,
+                    ),
+
+                    ElevatedButton.icon(
+                        icon: Icon(Icons.add),
+                        onPressed: (){
+                          _showDialog(context);
+                        },
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(greenCodeurs)),
+                        label: Text("Créer",
+                          style: TextStyle(color: Colors.white),
+                        ))
+                  ],
+                ),
               ),
             ),
-          ),
 
-          /*child: Center(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  TextField(
-                    controller: controllerTitle,
-                    decoration: textInputDecoration.copyWith(hintText: "Titre"),
-                  ),
-                  TextField(
-                    controller: controllerTitle,
-                    decoration: textInputDecoration.copyWith(hintText: "Type"),
-                  ),
-                ],
-              ),
-              TextField(
-                controller: controllerDescription,
-                decoration: textInputDecoration.copyWith(hintText: "Description"),
-              ),
-              TextField(
-                controller: controllerUseCase,
-                decoration: textInputDecoration.copyWith(hintText: "Cas d'Utilisation"),
-              ),
-              ElevatedButton(
-                onPressed:()async{
-                  if(_key.currentState?.validate()==true){
-                    setState(()=>loading=true);
-                    var title=controllerTitle.value.text;
-                    var type=controllerType.value.text;
-                    var description=controllerDescription.value.text;
-                    var useCase=controllerUseCase.value.text;
-                    bookingService.addPost(title,type,description,useCase);
-                    print("OK:"+title);
-                  }
-                },
-                child:Text(
-                  "Créer",
-                  style:TextStyle(color:Colors.white),
-                ),
-                style:ButtonStyle(
-                    backgroundColor:MaterialStateProperty.all(greenCodeurs)),
-              )
-            ],
           ),
-        ),*/
         ),
       ),
     );
@@ -200,8 +200,8 @@ class _EditPostState extends State<EditPost> {
     showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
-            title: Text("Validez"),
-            content: Text("Vous allez valider la Fiche de conseils"),
+            title: Text("Validez",style: GoogleFonts.roboto(),),
+            content: Text("Vous allez valider la Fiche de conseils",style: GoogleFonts.roboto(),),
             actions: [
               TextButton.icon(
                 onPressed: () async {
@@ -211,19 +211,22 @@ class _EditPostState extends State<EditPost> {
                     var type = controllerType.value.text;
                     var description = controllerDescription.value.text;
                     var useCase = controllerUseCase.value.text;
-                    bookingService.addPost(
-                        title, type, description, useCase);
+                    var emailAuteur = controllerEmailAuthor.value.text;
+                    var youtube = controllerYoutube.value.text;
+                    databaseService.addPost(
+                        title, type, description, useCase, emailAuteur, youtube);
                     print("OK : " + title);
                     Navigator.of(context).pop();
-                    _snackBar();
+                    _snackBar;
+                    ScaffoldMessenger.of(context).showSnackBar(_snackBar);
                     toggleView();
                   }
                 },
-                label: Text("Oui"),
+                label: Text("Oui",style: GoogleFonts.roboto(),),
                 icon: Icon(Icons.done),
               ),
               TextButton.icon(
-                label: Text("Non"),
+                label: Text("Non",style: GoogleFonts.roboto(),),
                 onPressed: (){
                   Navigator.of(context).pop();
                 },
@@ -238,13 +241,10 @@ class _EditPostState extends State<EditPost> {
     );
   }
 
-  _snackBar() {
-    return Scaffold(
-      body: SnackBar(
-        content: Text("Félicitation! Vous avez créer une fiche conseils"),
+  final _snackBar = SnackBar(
+        content: Text("Félicitation! Vous avez créer une fiche conseils",style: GoogleFonts.roboto(),),
         behavior: SnackBarBehavior.floating,
-      ),
-    );
-  }
+      );
+
 }
 

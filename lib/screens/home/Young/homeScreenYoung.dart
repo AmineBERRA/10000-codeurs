@@ -13,7 +13,6 @@ import 'package:stage_10000_codeurs/widget/loading.dart';
 import 'package:stage_10000_codeurs/widget/myAppBar.dart';
 
 class HomeScreenYoung extends StatelessWidget {
-  final ServiceAuthentification _auth = ServiceAuthentification();
   final CollectionReference _post =
       FirebaseFirestore.instance.collection("post");
 
@@ -37,7 +36,9 @@ class HomeScreenYoung extends StatelessWidget {
                     title: snapshot.data.docs[index]['title'],
                     type: snapshot.data.docs[index]['type'],
                     description: snapshot.data.docs[index]['description'],
-                    useCase: snapshot.data.docs[index]['useCase']);
+                    useCase: snapshot.data.docs[index]['useCase'],
+                    emailAuthor: snapshot.data.docs[index]['emailAuthor'],
+                    youtubeLink: snapshot.data.docs[index]['youtube']);
                 return Card(
                   elevation: 5,
                   color: greenCodeurs,
