@@ -15,7 +15,6 @@ class ServiceDatabase {
       FirebaseFirestore.instance.collection("users");
   final CollectionReference postCollection = 
       FirebaseFirestore.instance.collection("post");
-  FirebaseStorage storage = FirebaseStorage.instance;
 
   
   Stream<AppUserData> get user {
@@ -32,6 +31,10 @@ class ServiceDatabase {
     );
   }
 
+  Future<QuerySnapshot<Object?>> getProfilePic(File? profilePic) async {
+    return await userCollection.where('profileImage', isEqualTo: profilePic).get();
+  }
+
   AppUserData _userFromSnapshot(DocumentSnapshot snapshot) {
     var data = snapshot.data();
     if (data == null) throw Exception("post Inconnu");
@@ -40,7 +43,8 @@ class ServiceDatabase {
         name: snapshot['name'],
         lastname: snapshot['lastname'],
         email: snapshot['email'],
-        role: snapshot['role']);
+        role: snapshot['role'],
+        profileImage : snapshot['profileImage']);
   }
 
   //changement de rôle de la part de l'Admin
@@ -62,7 +66,7 @@ class ServiceDatabase {
   }
 
 //changement de rôle de la part de l'Admin
-  Future<void> updateItem({
+  /*Future<void> updateRole({
     required String role,
   }) async {
     DocumentReference documentReferencer =
@@ -76,16 +80,17 @@ class ServiceDatabase {
         .update(data)
         .whenComplete(() => print("Note item updated in the database"))
         .catchError((e) => print("//////$e"));
-  }
+  }*/
 
   //Expert créer une fiche conseil
-  Future addPost(String title, String type, String description, String useCase, String emailAuthor, String youtubeLink) => postCollection.add({
+  Future addPost(String title, String type, String description, String useCase, String emailAuthor, String youtubeLink, String community) => postCollection.add({
       'title' : title,
       'type' : type,
       'description' : description,
       'useCase' : useCase,
       'emailAuthor' : emailAuthor,
-      'youtube' : youtubeLink
+      'youtube' : youtubeLink,
+      'community' : community
     }).then((value) => print("Post Added"))
         .catchError((error) => print("Failed to add post: $error"));
 

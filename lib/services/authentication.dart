@@ -10,7 +10,7 @@ class ServiceAuthentification {
   }
 
   AppUserData? _userFromFirebaseUser(User? user) {
-    return user != null ? AppUserData(uid: user.uid, name: '', lastname: '', email: '', role: '') : null;
+    return user != null ? AppUserData(uid: user.uid, name: '', lastname: '', email: '', role: '', profileImage: '') : null;
   }
 
   Future signInEmailPassword(String email, String password) async {
@@ -59,6 +59,7 @@ class ServiceAuthentification {
     return null;
     }
   }
+
 }
 
 

@@ -21,7 +21,7 @@ class HomeScreenYoung extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(context),
       body: StreamBuilder(
-        stream: _post.orderBy('title').snapshots(),
+        stream: _post.orderBy('community').snapshots(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) {
             return Loading();
@@ -38,7 +38,9 @@ class HomeScreenYoung extends StatelessWidget {
                     description: snapshot.data.docs[index]['description'],
                     useCase: snapshot.data.docs[index]['useCase'],
                     emailAuthor: snapshot.data.docs[index]['emailAuthor'],
-                    youtubeLink: snapshot.data.docs[index]['youtube']);
+                    youtubeLink: snapshot.data.docs[index]['youtube'],
+                    community: snapshot.data.docs[index]['community'],
+                );
                 return Card(
                   elevation: 5,
                   color: greenCodeurs,
@@ -53,7 +55,7 @@ class HomeScreenYoung extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 20.0),
                         ),
-                        subtitle: Text(postData.type,
+                        subtitle: Text(postData.community,
                           style: GoogleFonts.roboto(
                             color: Colors.white,
                             fontStyle: FontStyle.italic,
@@ -72,29 +74,6 @@ class HomeScreenYoung extends StatelessWidget {
               });
         },
       ),
-
-      /*GridView.count(
-          scrollDirection: Axis.vertical,
-          // Create a grid with 2 columns. If you change the scrollDirection to
-          // horizontal, this produces 2 rows.
-          crossAxisCount: 2,
-          // Generate 100 widgets that display their index in the List.
-          children: List.generate(101, (index) {
-            return  Container(
-              margin: EdgeInsets.all(10),
-                child: Card(
-                  elevation: 10,
-                  color: yellowCodeurs,
-                  child: Center(
-                    child: ListTile(
-                      leading: Icon(Icons.audiotrack, color: redCodeurs,size: 30,),
-                      title: Text("Item $index"),
-                    ),
-                  ),
-                ),
-              );
-          }),
-        ),*/
     );
   }
 }

@@ -19,20 +19,6 @@ class HomeScreenAdmin extends StatefulWidget {
 
 class _HomeScreenAdminState extends State<HomeScreenAdmin> {
 
-  /* late int selectedRadio;
-  @override
-  void initState(){
-    super.initState();
-    selectedRadio = 0;
-  }
-  setSelectedRadioTile(int val) {
-    setState(() {
-      selectedRadio = val;
-    });
-  }*/
-
-  //CollectionReference _users = FirebaseFirestore.instance.collection('users');
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +37,8 @@ class _HomeScreenAdminState extends State<HomeScreenAdmin> {
                     name: snapshot.data.docs[index]['name'],
                     lastname: snapshot.data.docs[index]['lastname'],
                     email: snapshot.data.docs[index]['email'],
-                    role: snapshot.data.docs[index]['role']);
+                    role: snapshot.data.docs[index]['role'],
+                    profileImage: snapshot.data.docs[index]['profileImage']);
                 return Column(
                   children: [
                     Padding(
@@ -79,12 +66,6 @@ class _HomeScreenAdminState extends State<HomeScreenAdmin> {
                                 ),
                                 style: TextButton.styleFrom(backgroundColor: greenCodeurs),
                               ),
-                              /*TextButton.icon(
-                                        icon: Icon(Icons.change_circle_outlined, color: Colors.white,),
-                                        onPressed: (){},
-                                        label: Text("Mentor",style: TextStyle(color: Colors.white),),
-                                        style: TextButton.styleFrom(backgroundColor: blueCodeurs),
-                              ),*/
                             ],
                           ),
                           shape: RoundedRectangleBorder(
@@ -95,9 +76,6 @@ class _HomeScreenAdminState extends State<HomeScreenAdmin> {
                         ),
                     ),
 
-                    /*Divider(
-                      color: Colors.black,
-                    ),*/
                   ],
                 );
               }
@@ -107,23 +85,7 @@ class _HomeScreenAdminState extends State<HomeScreenAdmin> {
     );
   }
 
-  /*late List<Role> roles;
 
-  @override
-  void initState() {
-    super.initState();
-    roles = Role.getUsers();
-  }
-
-  setSelectedRole(Role role) {
-    setState(() {
-      selectedRole = role;
-    });
-  }*/
-
-
-  /*List<String> roleList = ["Jeune","Expert","Mentor","Direction"];
-  late int _currentIndex = 0;*/
   ListRole? _value = ListRole.Jeune;
 
   _changerole(BuildContext context, String docId) async {

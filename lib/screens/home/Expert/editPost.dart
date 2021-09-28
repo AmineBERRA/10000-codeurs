@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/constantConstant.dart';
+import 'package:stage_10000_codeurs/widget/dropDownButton.dart';
 
 class EditPost extends StatefulWidget {
   const EditPost({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class _EditPostState extends State<EditPost> {
   final _key = GlobalKey<FormState>();
   bool loading = false;
   String error = '';
+  late String community ;
 
   final controllerTitle = TextEditingController();
   final controllerType = TextEditingController();
@@ -52,6 +54,7 @@ class _EditPostState extends State<EditPost> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          elevation: 1,
           iconTheme: IconThemeData(color: blueCodeurs),
           backgroundColor: Colors.white,
           title: Text(
@@ -85,6 +88,9 @@ class _EditPostState extends State<EditPost> {
                           : null,
                       cursorHeight: 20.0,
                     ),
+                    SizedBox(height:10.0,),
+                    //Communauté
+                    DropDown(callbackCommu),
                     SizedBox(height:10.0,),
                     //Type
                     TextFormField(
@@ -179,7 +185,7 @@ class _EditPostState extends State<EditPost> {
                     ElevatedButton.icon(
                         icon: Icon(Icons.add),
                         onPressed: (){
-                          _showDialog(context);
+                          validationPost(context);
                         },
                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(greenCodeurs)),
                         label: Text("Créer",
@@ -196,7 +202,7 @@ class _EditPostState extends State<EditPost> {
     );
   }
 
-   _showDialog(BuildContext context){
+   validationPost(BuildContext context){
     showDialog(context: context,
         builder: (BuildContext context){
           return AlertDialog(
@@ -214,7 +220,7 @@ class _EditPostState extends State<EditPost> {
                     var emailAuteur = controllerEmailAuthor.value.text;
                     var youtube = controllerYoutube.value.text;
                     databaseService.addPost(
-                        title, type, description, useCase, emailAuteur, youtube);
+                        title, type, description, useCase, emailAuteur, youtube, community);
                     print("OK : " + title);
                     Navigator.of(context).pop();
                     _snackBar;
@@ -245,6 +251,10 @@ class _EditPostState extends State<EditPost> {
         content: Text("Félicitation! Vous avez créer une fiche conseils",style: GoogleFonts.roboto(),),
         behavior: SnackBarBehavior.floating,
       );
+
+  void callbackCommu(String newCommunity) {
+        community = newCommunity;
+}
 
 }
 

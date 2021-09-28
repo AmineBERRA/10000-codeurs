@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
           child: Container(
             child: Stack(
               children: [
-                Container(
-                    child: Background()),
+               /* Container(
+                    child: Background()),*/
                 Container(
                     child:AuthenticateScreen()),
 

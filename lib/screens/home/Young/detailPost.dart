@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,11 +7,19 @@ import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/models/postModel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailPost extends StatelessWidget {
+class DetailPost extends StatefulWidget {
 final PostData postData;
 DetailPost(this.postData);
-//static const url = "https://youtube.com";
 
+  @override
+  _DetailPostState createState() => _DetailPostState();
+}
+
+class _DetailPostState extends State<DetailPost> {
+final CollectionReference userinfo =
+FirebaseFirestore.instance.collection("users");
+
+var profileImage = FirebaseFirestore.instance.collection('users').doc();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,48 +27,76 @@ DetailPost(this.postData);
         iconTheme: IconThemeData(color: blueCodeurs),
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text(postData.title,
-          style: GoogleFonts.roboto(color: blueCodeurs),
+        title: Text(widget.postData.title,
+          style: GoogleFonts.roboto(color: blueCodeurs, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(35.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(postData.description,
-              style: GoogleFonts.roboto(),
+      body: SingleChildScrollView(
+            child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)
+                        ),
+                        elevation: 5,
+                        color: blueCodeurs,
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text("Description : \n\n" + widget.postData.description,
+                            style: GoogleFonts.roboto(color: Colors.white),
+                          ),)
+                      ),
+                      SizedBox(height: 20.0),
+                      Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5)
+                          ),
+                          elevation: 5,
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text("Cas d'utilisation : \n\n" + widget.postData.useCase +"\n\n"+ profileImage.toString(),
+                            style: GoogleFonts.roboto(),
+                          ),
+                        )
+                      ),
+                      SizedBox(height: 20.0),
+                      TextButton(
+                        onPressed: _launchEmail,
+                        child: Text("Email de l'Expert : " + widget.postData.emailAuthor,
+                          style: GoogleFonts.roboto(fontWeight: FontWeight.bold),),
+                      ),
+                      CircleAvatar(radius: 30,),
+                      SizedBox(height: 20.0),
+                      Image.network(profileImage.toString()),
+                      SizedBox(height: 20.0),
+                      TextButton(
+                          onPressed: _launchYoutubeLink,
+                          child: Text("Lien Youtube du Webinaire : " + widget.postData.youtubeLink,
+                            style: GoogleFonts.roboto(fontWeight: FontWeight.bold),)
+                      )
+                    ],
+                  ),
+                )
             ),
-              Text(postData.useCase,
-              style: GoogleFonts.roboto(),
-            ),
-              TextButton(
-                onPressed: _launchEmail,
-                child: Text(postData.emailAuthor,
-                style: GoogleFonts.roboto(),),
-            ),
-              TextButton(
-                  onPressed: _launchYoutubeLink,
-                  child: Text(postData.youtubeLink))
-            ],
           ),
-        )
-      ),
-    );
+      );
   }
 
   void _launchYoutubeLink() async =>
-      await canLaunch(postData.youtubeLink) ? launch(postData.youtubeLink) : throw 'Could not launch ${postData.youtubeLink}';
+      await canLaunch(widget.postData.youtubeLink) ? launch(widget.postData.youtubeLink) : throw 'Could not launch ${widget.postData.youtubeLink}';
 
   void _launchEmail() async {
-    final mailtoLinnk = Mailto(
-      to: [postData.emailAuthor],
+    final mailtoLink = Mailto(
+      to: [widget.postData.emailAuthor],
       subject: '',
       body: '',
     );
-    await launch('$mailtoLinnk');
+    await launch('$mailtoLink');
     }
-  }
+}
 
 
