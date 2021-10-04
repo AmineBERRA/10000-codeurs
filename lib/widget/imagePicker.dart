@@ -9,50 +9,66 @@ import 'package:path/path.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 
 class ImageFromGallery extends StatefulWidget {
+  final Map<String, dynamic> data;
 
+  ImageFromGallery(this.data);
 
   @override
   _ImageFromGalleryState createState() => _ImageFromGalleryState();
 }
 
 class _ImageFromGalleryState extends State<ImageFromGallery> {
-   File? _file;
-   var profileImage = FirebaseFirestore.instance.collection('users').doc('profileImage');
+  File? _file;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        child: Column(
-          children: <Widget>[
-          Row(
-            children: [
-              _file == null ?
+          child: Column(children: <Widget>[
+        Row(
+          children: [
+            widget.data["profileImage"]
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.network(
+                      widget.data["profileImage"],
+                      height: 150.0,
+                      width: 100.0,
+                    ),
+                  )
+                : Icon(
+                    Icons.person,
+                    size: 60,
+                  ),
+
+            /* currentUser == null ?
               Icon(Icons.person,
                 size: 60,)
                   :  Image.file(_file!,
                 fit: BoxFit.contain,
                 height: 200,
-                width: 200,),
-              ElevatedButton(
-                onPressed: (){
-                  chooseImage();
-                  validationProfileImage(context);
-                  //updateProfile(context);
-                },
-                child: Icon(Icons.add_a_photo, color: Colors.white,),
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  primary: blueCodeurs,
-                  onPrimary: greenCodeurs,
-                ),
-              )
-            ],
-          ),
-          ]
-        )
+                width: 200,)*/
+            ElevatedButton(
+              onPressed: () {
+                chooseImage();
+                validationProfileImage(context);
+                //updateProfile(context);
+              },
+              child: Icon(
+                Icons.add_a_photo,
+                color: Colors.white,
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: CircleBorder(),
+                primary: blueCodeurs,
+                onPrimary: greenCodeurs,
+              ),
+            )
+          ],
+        ),
+      ])
 
-        /*GestureDetector(
+          /*GestureDetector(
           onTap: () async {
             chooseImage();
             updateProfile(context);
@@ -71,7 +87,7 @@ class _ImageFromGalleryState extends State<ImageFromGallery> {
                     )
           ),
         ),*/
-      ),
+          ),
     );
   }
 
@@ -80,19 +96,19 @@ class _ImageFromGalleryState extends State<ImageFromGallery> {
     setState(() {
       _file = File(image!.path);
       print(_file);
-      print("///$image");
     });
   }
 
   Future<String> uploadImage() async {
-     TaskSnapshot taskSnapshot = await FirebaseStorage.instance
-         .ref()
-         .child("profilePicture")
-         .child(
-         FirebaseAuth.instance.currentUser!.email! + "_" + basename(_file!.path))
-         .putFile(_file!);
-     return taskSnapshot.ref.getDownloadURL();
-   }
+    TaskSnapshot taskSnapshot = await FirebaseStorage.instance
+        .ref()
+        .child("profilePicture")
+        .child(FirebaseAuth.instance.currentUser!.email! +
+            "_" +
+            basename(_file!.path))
+        .putFile(_file!);
+    return taskSnapshot.ref.getDownloadURL();
+  }
 
   updateProfile(BuildContext context) async {
     Map<String, dynamic> map = Map();
@@ -110,28 +126,35 @@ class _ImageFromGalleryState extends State<ImageFromGallery> {
   }
 
   validationProfileImage(BuildContext context) {
-    showDialog(context: context, builder: (BuildContext context){
-      return AlertDialog(
-        title: Text("Photo de Profile"),
-        content: Text("Validez la photo ?"),
-        actions: [
-          TextButton.icon(
-              onPressed: () {
-                updateProfile(context);
-                Navigator.of(context).pop();
-                print(profileImage);
-                },
-              icon: Icon(Icons.done, color: blueCodeurs,),
-              label: Text("Valider")
-          ),
-          TextButton.icon(
-              onPressed: () {
-                Navigator.of(context).pop();
-                },
-              icon: Icon(Icons.close, color: redCodeurs,),
-              label: Text("Annuler"))
-        ],
-      );
-    });
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Photo de Profile"),
+            content: Text("Validez la photo ?"),
+            actions: [
+              TextButton.icon(
+                  onPressed: () {
+                    updateProfile(context);
+                    Navigator.of(context).pop();
+                    //print(profileImage);
+                  },
+                  icon: Icon(
+                    Icons.done,
+                    color: blueCodeurs,
+                  ),
+                  label: Text("Valider")),
+              TextButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: redCodeurs,
+                  ),
+                  label: Text("Annuler"))
+            ],
+          );
+        });
   }
 }

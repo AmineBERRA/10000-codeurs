@@ -37,7 +37,7 @@ class HomeScreenYoung extends StatelessWidget {
                     type: snapshot.data.docs[index]['type'],
                     description: snapshot.data.docs[index]['description'],
                     useCase: snapshot.data.docs[index]['useCase'],
-                    emailAuthor: snapshot.data.docs[index]['emailAuthor'],
+                    author: snapshot.data.docs[index]['author'],
                     youtubeLink: snapshot.data.docs[index]['youtube'],
                     community: snapshot.data.docs[index]['community'],
                 );

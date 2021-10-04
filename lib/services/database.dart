@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:stage_10000_codeurs/models/postModel.dart';
 import 'package:stage_10000_codeurs/models/userModel.dart';
 import 'package:stage_10000_codeurs/screens/home/Admin/homeScreenAdmin.dart';
 
@@ -29,10 +30,6 @@ class ServiceDatabase {
       String name, String lastname, String email, String role) async {
     return await userCollection.doc(uid).set({'name': name, 'lastname': lastname, 'email': email, 'role': role},
     );
-  }
-
-  Future<QuerySnapshot<Object?>> getProfilePic(File? profilePic) async {
-    return await userCollection.where('profileImage', isEqualTo: profilePic).get();
   }
 
   AppUserData _userFromSnapshot(DocumentSnapshot snapshot) {
@@ -65,34 +62,23 @@ class ServiceDatabase {
         .catchError((error) => print("Failed to update user: $error /////" +docId));
   }
 
-//changement de rôle de la part de l'Admin
-  /*Future<void> updateRole({
-    required String role,
-  }) async {
-    DocumentReference documentReferencer =
-    FirebaseFirestore.instance.collection('users').doc(uid);
-
-    Map<String, dynamic> data = <String, dynamic>{
-      "role": role,
-
-    };
-    await documentReferencer
-        .update(data)
-        .whenComplete(() => print("Note item updated in the database"))
-        .catchError((e) => print("//////$e"));
-  }*/
 
   //Expert créer une fiche conseil
-  Future addPost(String title, String type, String description, String useCase, String emailAuthor, String youtubeLink, String community) => postCollection.add({
-      'title' : title,
-      'type' : type,
-      'description' : description,
-      'useCase' : useCase,
-      'emailAuthor' : emailAuthor,
-      'youtube' : youtubeLink,
-      'community' : community
+  Future addPost(PostData post) => postCollection.add({
+      'title' : post.title,
+      'type' : post.type,
+      'description' : post.description,
+      'useCase' : post.useCase,
+      'author' : post.author,
+      'youtube' : post.youtubeLink,
+      'community' : post.community
     }).then((value) => print("Post Added"))
         .catchError((error) => print("Failed to add post: $error"));
+
+
+  Future<QuerySnapshot<Object?>> getProfilePic(File? profilePic) async {
+    return await userCollection.where('profileImage', isEqualTo: profilePic).get();
+  }
 
   //Choisir et Sauvegarder la photo de profile dans Firebase Storage
 /*Future<void> _uploadImage(String inputSource) async {

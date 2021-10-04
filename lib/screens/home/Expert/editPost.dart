@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stage_10000_codeurs/helpers/constants/colorsConstant.dart';
 import 'package:stage_10000_codeurs/helpers/constants/constantConstant.dart';
+import 'package:stage_10000_codeurs/models/postModel.dart';
 import 'package:stage_10000_codeurs/widget/dropDownButton.dart';
 
 class EditPost extends StatefulWidget {
@@ -21,7 +23,6 @@ class _EditPostState extends State<EditPost> {
   final controllerType = TextEditingController();
   final controllerDescription = TextEditingController();
   final controllerUseCase = TextEditingController();
-  final controllerEmailAuthor = TextEditingController();
   final controllerYoutube = TextEditingController();
 
   @override
@@ -30,7 +31,6 @@ class _EditPostState extends State<EditPost> {
     controllerType.dispose();
     controllerDescription.dispose();
     controllerUseCase.dispose();
-    controllerEmailAuthor.dispose();
     controllerYoutube.dispose();
     super.dispose();
   }
@@ -43,7 +43,6 @@ class _EditPostState extends State<EditPost> {
       controllerType.text = '';
       controllerDescription.text = '';
       controllerUseCase.text = '';
-      controllerEmailAuthor.text = '';
       controllerYoutube.text = '';
     });
   }
@@ -148,23 +147,6 @@ class _EditPostState extends State<EditPost> {
                           : null,
                     ),
                     SizedBox(height:10.0,),
-                    //Email Auteur
-                    TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      controller: controllerEmailAuthor,
-                      decoration: InputDecoration(
-                        hintText: "Email de l'auteur",
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                      ),
-                      cursorHeight: 20.0,
-                      validator: (value) => value!.isEmpty
-                          ? "Entrer un Email"
-                          : null,
-                    ),
-                    SizedBox(height:10.0,),
                     //Youtube Link
                     TextFormField(
                       keyboardType: TextInputType.url,
@@ -217,10 +199,15 @@ class _EditPostState extends State<EditPost> {
                     var type = controllerType.value.text;
                     var description = controllerDescription.value.text;
                     var useCase = controllerUseCase.value.text;
-                    var emailAuteur = controllerEmailAuthor.value.text;
+
+                    var auteur = FirebaseAuth.instance.currentUser!.uid;
                     var youtube = controllerYoutube.value.text;
-                    databaseService.addPost(
-                        title, type, description, useCase, emailAuteur, youtube, community);
+
+                    var post = PostData(
+                        title: title, type: type, description: description,
+                        useCase: useCase, author: auteur, youtubeLink: youtube, community: community);
+                    databaseService.addPost(post);
+
                     print("OK : " + title);
                     Navigator.of(context).pop();
                     _snackBar;

@@ -1,3 +1,6 @@
+//FICHIER NON UTILISE MAIS A FAIRE EN SORTE DE L'INTEGRER A L'AVENIR
+
+
 enum AuthResultStatus {
   successful,
   emailAlreadyExists,
