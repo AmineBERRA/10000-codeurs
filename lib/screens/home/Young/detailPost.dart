@@ -64,9 +64,7 @@ class _DetailPostState extends State<DetailPost> {
                     padding: EdgeInsets.all(10.0),
                     child: Text(
                       "Cas d'utilisation : \n\n" +
-                          widget.postData.useCase +
-                          "\n\n" +
-                          profileImage.toString(),
+                          widget.postData.useCase,
                       style: GoogleFonts.roboto(),
                     ),
                   )),
